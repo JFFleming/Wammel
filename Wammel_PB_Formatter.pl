@@ -77,8 +77,8 @@ python3 scripts/read_marglikelihood.py AB_SI_?.stepping > AB.marginal
 python3 scripts/read_marglikelihood.py BB_SI_?.stepping > BB.marginal
 python3 scripts/read_marglikelihood.py BA_SI_?.stepping > BA.marginal
 
-Finally, use the WammelCalculator.pl script contained here to calculate the Wammel Score (Bayesian Coherence)
+Finally, use the WammelPBCalculator.pl script contained here to calculate the Wammel Score (Bayesian Coherence)
 
-WammelCalculator.pl AA/AA.marginal AB/AB.marginal BB/BB.marginal BA/BA.marginal
+WammelPBCalculator.pl AA/AA.marginal AB/AB.marginal BB/BB.marginal BA/BA.marginal
 
 ";
