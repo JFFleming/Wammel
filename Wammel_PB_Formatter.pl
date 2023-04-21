@@ -70,11 +70,15 @@ pb_mpi -d $Blist[0] $Blist[3] -f -T $Blist[1] -self_tuned_sis 1 10 30 0.1 200 -e
 pb_mpi -d $Blist[0] $Blist[3] -f -T $Alist[2] -self_tuned_sis 1 10 30 0.1 200 -emp_ref BAChain.posthyper BA_SI_1
 pb_mpi -d $Blist[0] $Blist[3] -f -T $Alist[2] -self_tuned_sis 1 10 30 0.1 200 -emp_ref BAChain.posthyper BA_SI_2
 
-Finally, to obtain the marginal likelihood, use this script:
+Once you have a reaosnably long stepping stone chain with good effective sample size, you can obtain the marginal likelihood using this script, contained in the pb_mpi package:
 
-python3 scripts/read_marglikelihood.py AA_SI_?.stepping
-python3 scripts/read_marglikelihood.py AB_SI_?.stepping
-python3 scripts/read_marglikelihood.py BB_SI_?.stepping
-python3 scripts/read_marglikelihood.py BA_SI_?.stepping
+python3 scripts/read_marglikelihood.py AA_SI_?.stepping > AA.marginal
+python3 scripts/read_marglikelihood.py AB_SI_?.stepping > AB.marginal
+python3 scripts/read_marglikelihood.py BB_SI_?.stepping > BB.marginal
+python3 scripts/read_marglikelihood.py BA_SI_?.stepping > BA.marginal
+
+Finally, use the WammelCalculator.pl script contained here to calculate the Wammel Score (Bayesian Coherence)
+
+WammelCalculator.pl AA/AA.marginal AB/AB.marginal BB/BB.marginal BA/BA.marginal
 
 ";
