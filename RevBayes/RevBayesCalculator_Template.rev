@@ -1,0 +1,22 @@
+
+#### This step obtains the marginal likelihoods for each of your four stepping stone analyses. Use the supplied perl script to easily edit it for your analysis ####
+
+ssAA = steppingStoneSampler(file="<AA>", powerColumnName="power", likelihoodColumnName="likelihood")
+BFAA = ssAA.marginal() 
+
+ssAB = steppingStoneSampler(file="<AB>", powerColumnName="power", likelihoodColumnName="likelihood")
+BFAB = ssAB.marginal() 
+
+ssBB = steppingStoneSampler(file="<BB>", powerColumnName="power", likelihoodColumnName="likelihood")
+BFBB = ssBB.marginal() 
+
+ssBA = steppingStoneSampler(file="<BA>", powerColumnName="power", likelihoodColumnName="likelihood")
+BFBA =ssBA.marginal() 
+
+#### Then we perform the simple coherence analysis ####
+CoAAAB = BFAA-BFAB
+CoAAAB
+CoBBBA = BFBA-BFBB
+CoBBBA
+Wammel=CoAAAB-CoBBBA
+Wammel
