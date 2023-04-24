@@ -70,7 +70,8 @@ pb_mpi -d $Blist[0] $Blist[3] -f -T $Blist[1] -self_tuned_sis 1 10 30 0.1 200 -e
 pb_mpi -d $Blist[0] $Blist[3] -f -T $Alist[2] -self_tuned_sis 1 10 30 0.1 200 -emp_ref BAChain.posthyper BA_SI_1
 pb_mpi -d $Blist[0] $Blist[3] -f -T $Alist[2] -self_tuned_sis 1 10 30 0.1 200 -emp_ref BAChain.posthyper BA_SI_2
 
-Once you have a reaosnably long stepping stone chain with good effective sample size, you can obtain the marginal likelihood using this script, contained in the pb_mpi package:
+Once you have a reasonably long stepping stone chain with good effective sample size (which you can test with the read_marglikelihood.py script below), you can 
+	obtain the marginal likelihood using this script which can be found contained in the pb_mpi package:
 
 python3 scripts/read_marglikelihood.py AA_SI_?.stepping > AA.marginal
 python3 scripts/read_marglikelihood.py AB_SI_?.stepping > AB.marginal
