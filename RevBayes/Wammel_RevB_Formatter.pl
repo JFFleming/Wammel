@@ -3,7 +3,7 @@ use warnings;
 
 print "Welcome to the Wammel Revbayes Formatter. 
 This script takes as input two txt files containing information about the two datasets you are interested in comparing, and formats them for a Wammel-style analysis.
-In addition, it provides a txt file of example Phylobayes commands to move efficiently through the workflow.
+It outputs four Revbayes scripts into sorted directories to allow you to undertake your analysis, and also crafts a simple Revbayes script to calculate the Wammel Coherence Index once the analysis has finished.
 
 The expected input file format is a list as follows:
 FastaFile
@@ -41,3 +41,5 @@ system ("sed -e 's/<GROUP>/AA/g' -e 's/<FASTAFILE>/$Alist[0]/g' -e '/CLADECONSTR
 system ("sed -e 's/<GROUP>/BA/g' -e 's/<FASTAFILE>/$Blist[0]/g' -e '/CLADECONSTRAINTS ####/r $Alist[1]' -e '/MODELFILE ####/r $Blist[2]' RevBayesTemplate.rev > GroupBA.rev");
 system ("sed -e 's/<GROUP>/AB/g' -e 's/<FASTAFILE>/$Alist[0]/g' -e '/CLADECONSTRAINTS ####/r $Blist[1]' -e '/MODELFILE ####/r $Alist[2]' RevBayesTemplate.rev > GroupAB.rev");
 system ("sed -e 's/<GROUP>/BB/g' -e 's/<FASTAFILE>/$Blist[0]/g' -e '/CLADECONSTRAINTS ####/r $Blist[1]' -e '/MODELFILE ####/r $Blist[2]' RevBayesTemplate.rev > GroupBB.rev");
+
+system ("sed -e 's/<AA>/AA_output\\/pow_p_noclock\.$Alist[0]\.AA.out/g' -e 's/<AB>/AB_output\\/pow_p_noclock\.$Alist[0]\.AB.out/g' -e 's/<BB>/BB_output\\/pow_p_noclock\.$Blist[0]\.BB.out/g' -e 's/<BA>/BA_output\\/pow_p_noclock\.$Blist[0]\.BA.out/g' RevBayesCalculator_Template.rev > Personalised_RevBayes_WammelCalculator.rev");
