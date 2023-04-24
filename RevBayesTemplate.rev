@@ -1,0 +1,100 @@
+#######################
+# Reading in the Data #
+#######################
+
+###### This just defines a single model for all sites #######
+
+### Read in sequence data for both genes
+
+data <- readDiscreteCharacterData("<FASTAFILE>")
+
+# Get some useful variables from the data. We need these later on.
+n_species <- data.ntaxa()
+n_sites <- data.nchar()
+names <- data.names()
+n_branches <- 2 * n_species - 3
+
+# set my move index
+mi = 0
+
+
+
+######################
+# Substitution Model #
+######################
+#### This portion takes a substitution model to apply to all sites MODELFILE ####
+
+
+
+
+
+
+##############
+# Tree model #
+##############
+
+#### Specify the constraints on the tree topology CLADECONSTRAINTS #### 
+
+topology ~ dnUniformTopology(taxa=names, constraints=TotalClade)
+
+# moves on the tree
+moves[++mi] = mvNNI(topology)
+moves[++mi] = mvSPR(topology)
+
+
+#### Specify a prior and moves on the branch lengths #### 
+for (i in 1:n_branches) {
+  br_lens[i] ~ dnExponential(10.0)
+  
+  moves[++mi] = mvScale(br_lens[i]) 
+}
+
+TL := sum(br_lens)
+
+# Build the tree by combining the topology with the branch length.
+phylogeny := treeAssembly(topology, br_lens)
+
+
+
+
+
+###################
+# PhyloCTMC Model #
+###################
+
+
+# the sequence evolution model
+seq ~ dnPhyloCTMC(tree=phylogeny, Q=Q, type="<DATA>")
+
+# attach the data
+seq.clamp(data)
+
+
+
+
+#############
+# THE Model #
+#############
+
+mymodel = model(Q)
+
+
+
+
+monitors[1] = mnModel(filename="<GROUP>_output/<FASTAFILE>_<GROUP>.log",printgen=10, separator = TAB)
+monitors[2] = mnFile(filename="<GROUP>_output/<FASTAFILE>_<GROUP>_posterior.trees",printgen=10, separator = TAB, phylogeny)
+
+### Compute power posterior distributions
+pow_p = powerPosterior(mymodel, moves, monitors, "<GROUP>_output/pow_p_noclock_<FASTAFILE>_<GROUP>.out", cats=50, sampleFreq=10) 
+pow_p.burnin(generations=10000,tuningInterval=250)
+pow_p.run(generations=1000)  
+
+### Use stepping-stone sampling to calculate marginal likelihoods
+ss = steppingStoneSampler(file="<GROUP>_output/pow_p_noclock_<FASTAFILE>_<GROUP>.out", powerColumnName="power", likelihoodColumnName="likelihood")
+ss.marginal() 
+
+### Use path-sampling to calculate marginal likelihoods
+ps = pathSampler(file="<GROUP>_output/pow_p_noclock_<FASTAFILE>_<GROUP>.out", powerColumnName="power", likelihoodColumnName="likelihood")
+ps.marginal() 
+
+q()
