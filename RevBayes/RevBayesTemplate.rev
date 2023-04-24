@@ -93,8 +93,4 @@ pow_p.run(generations=1000)
 ss = steppingStoneSampler(file="<GROUP>_output/pow_p_noclock_<FASTAFILE>_<GROUP>.out", powerColumnName="power", likelihoodColumnName="likelihood")
 ss.marginal() 
 
-### Use path-sampling to calculate marginal likelihoods
-ps = pathSampler(file="<GROUP>_output/pow_p_noclock_<FASTAFILE>_<GROUP>.out", powerColumnName="power", likelihoodColumnName="likelihood")
-ps.marginal() 
-
 q()
