@@ -3,11 +3,13 @@ use warnings;
 
 print "Welcome to the Wammel Revbayes Formatter. 
 This script takes as input two txt files containing information about the two datasets you are interested in comparing, and formats them for a Wammel-style analysis.
-It outputs four Revbayes scripts into sorted directories to allow you to undertake your analysis, and also crafts a simple Revbayes script to calculate the Wammel Coherence Index once the analysis has finished.
+It outputs four Revbayes scripts into sorted directories to allow you to undertake your analysis, and also crafts a simple Revbayes script to calculate 
+	the Wammel Coherence Index once the analysis has finished.
 
 The expected input file format is a list as follows:
 FastaFile
-A file containing a series of constraints, in the RevBayes format, corresponding to the topology initially produced by the analysis of the fasta file, under the model (for examples, please see the provided example file)
+A file containing a series of constraints, in the RevBayes format, corresponding to the topology initially produced by the analysis of the fasta file, 
+	under the model (for examples, please see the provided example file). The final constraint must always be named TotalClade.
 A file containing the model used by the analysis associated with the fasta file, in Revbayes format (for examples, please see the provided Models folder)
 ";
 
