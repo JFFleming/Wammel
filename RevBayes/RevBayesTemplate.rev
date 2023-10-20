@@ -17,18 +17,6 @@ n_branches <- 2 * n_species - 3
 # set my move index
 mi = 0
 
-
-
-######################
-# Substitution Model #
-######################
-#### This portion takes a substitution model to apply to all sites MODELFILE ####
-
-
-
-
-
-
 ##############
 # Tree model #
 ##############
@@ -59,12 +47,10 @@ phylogeny := treeAssembly(topology, br_lens)
 
 
 ###################
-# PhyloCTMC Model #
+# PhyloCTMC Model and Substitution Model  #
 ###################
+#### This portion takes a substitution model to apply to all sites MODELFILE ####
 
-
-# the sequence evolution model
-seq ~ dnPhyloCTMC(tree=phylogeny, Q=Q, type="<DATA>")
 
 # attach the data
 seq.clamp(data)
